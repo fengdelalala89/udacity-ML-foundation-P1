@@ -23,13 +23,24 @@ September 2016.".
 如果键已经存在于字典内，为键所对应的值加上对应数值；
 如果键不存在于字典内，将此键加入字典，并将它的值设为给定值。
 """
+def cumulative(call_number, time, call_map):
+    """
+    按照电话号码，给电话字典累加时长
+    :param call_number: 电话号码
+    :param time:        通话时长
+    :param call_map:    电话字典
+    """
+    if call_number in call_map:
+        call_map[call_number] += int(time)
+    else:
+        call_map[call_number] = int(time)
+
 call_map = {}
 
+# 累加时长，接听电话的时间也是通话时间的一部分
 for call in calls:
-    if call[0] in call_map:
-        call_map[call[0]] += int(call[-1])
-    else:
-        call_map[call[0]] = int(call[-1])
+    cumulative(call[0], call[-1], call_map)
+    cumulative(call[1], call[-1], call_map)
 
 longest_call = {"telephone": 0, "total_time": 0}
 
